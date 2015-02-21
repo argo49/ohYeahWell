@@ -1,0 +1,90 @@
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+}
+
+h1 {
+    padding-bottom: $gap;
+    border-bottom: 1px solid $c-border;
+    font-size: 3em;
+    margin: 0;
+    padding: 0;
+
+    span.tagline {
+        font-size: 0.5em;
+        color: rgba(255,0,0, 0.7);
+    }
+}
+
+a {
+    color: $c-highlight;
+}
+
+html, body, .container, .main-area {
+    height: 100%;
+}
+
+h1 {
+    color: $c-highlight;
+    border: none;
+    font-family: 'Parisienne', cursive;
+    margin-bottom: 0;
+}
+
+div {
+    font-family: 'Cardo', serif;
+}
+
+button {
+    color: white;
+    background-color: $c-highlight;
+    text-shadow: none;
+    box-shadow: none;
+    border: none;
+    outline: none;
+
+    &:hover {
+        background-color: darken($c-highlight, 5%);
+    }
+
+}
+
+#speak {
+    font-size: 3em;
+    padding: 0.5em 1em;
+    font-family: 'Parisienne', cursive;
+}
+
+#dimmer {
+
+    display: none;
+
+    position: fixed;
+    top: 0;
+    background-color: rgba(0,0,0,0.5);
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    font-weight: 700;
+    font-size: 2em;
+
+    h1 {
+        border: none;
+        top:50%;
+        transform: translateY(-50%);
+        position: relative;
+        text-align: center;
+        color: white;
+    }
+}
+
+@media (max-width: 450px) {
+    h1 {
+        font-size: 2em;
+    }
+}
+
+@media (max-width: 300px) {
+    h1 {
+        font-size: 1em;
+    }
+}

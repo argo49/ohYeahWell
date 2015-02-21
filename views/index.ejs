@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Oh Yeah? Well...</title>
+    <link rel=" stylesheet" type="text/css" href="css/normalize.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container">
+        <div class="row clearfix">
+            <div class="column full">
+                <h1>Oh yeah? Well..</h1>
+            </div>
+        </div>
+        <div class="row clearfix main-area">
+            <div class="column full">
+                <button id="speak">
+                    Come at me bro
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="dimmer">
+        <h1>Speak</h1>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        // Speech to text
+        var recognition            = new webkitSpeechRecognition();
+        recognition.continuous     = false;
+        recognition.interimResults = false;
+
+        console.log(recognition);
+
+        $('#speak').on('click', function () {
+            recognition.start();
+        });
+
+        $('#dimmer').hide();
+
+        recognition.onerror = function (error) {
+            console.log(error);
+        }
+
+        recognition.onend = function (data) {
+            console.log(data);
+            $('#dimmer').hide();
+        }
+
+        recognition.onaudiostart = function () {
+            $('#dimmer').show();
+        }
+
+        recognition.onaudioend = function () {
+            $('#dimmer').hide();
+        }
+
+        recognition.onspeechend = function (data) {
+            console.log(data);
+        }
+
+        recognition.onspeechstart = function (data) {
+            console.log(data);
+            thinking();
+        }
+
+        // Remove notification when mic is enabled
+        recognition.onstart = function () {
+        }
+
+        // Yo Mama regex
+        var yoMamaExp = /(your|you're|yo)\s*(mama|mother|mom|mum|mommy)\s*('s|is)*/;
+
+        recognition.onresult = function(event) {
+            var text = event.results[event.results.length - 1][0].transcript;
+
+            // Your speech in text
+            console.log(text);
+
+            //append text to screen
+
+            scrollChat();
+
+            text = text.toLowerCase();
+
+            if (yoMamaExp.test(text)) {
+                $.ajax({
+                    url: '/yoMama',
+                    type: 'GET'
+                })
+                .done(function(data) {
+                    speak(data);
+                });
+            }
+
+        }
+
+        function scrollChat () {
+
+        }
+
+        function speak (str) {
+            var msg = new SpeechSynthesisUtterance(str);
+            window.speechSynthesis.speak(msg);
+
+            // append message
+
+            scrollChat();
+        }
+
+        function thinking () {
+            $('#chat').append($('<div class="notification">thinking...</div>'));
+        }
+
+        function doneThinking () {
+            $('#chat').find('.notification').remove();
+        }
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "ohYeahWell",
+  "version": "0.0.0",
+  "description": "Yo mama",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "insults", "comebacks"
+  ],
+  "author": "Tyler Argo <argo_49@hotmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "^4.6.1",
+    "normalize.css": "^3.0.1",
+    "sass": "^0.5.0",
+    "socket.io": "^1.0.6",
+    "unirest": "^0.4.0"
+  }
+}
