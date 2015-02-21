@@ -58,7 +58,7 @@ h1 {
 a {
   color: #9c27b0; }
 
-html, body, .container, .main-area {
+html, body, .container {
   height: 100%; }
 
 h1 {
@@ -80,10 +80,54 @@ button {
   button:hover {
     background-color: #89229b; }
 
+.center-y {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%); }
+
+.center-x {
+  margin: auto;
+  display: block; }
+
 #speak {
   font-size: 3em;
   padding: 0.5em 1em;
+  font-family: 'Parisienne', cursive;
+  width: 8em;
+  margin: auto;
+  display: block; }
+
+.speak-easy {
+  bottom: 2em;
+  position: fixed;
+  margin: auto;
+  left: 0;
+  display: block;
+  right: 0; }
+
+.header {
+  font-size: 4em; }
+
+.previously {
+  display: none;
+  margin-bottom: 1em;
+  color: #888;
+  text-align: center;
+  font-size: 3em;
   font-family: 'Parisienne', cursive; }
+  .previously.active {
+    display: block; }
+  .previously:before {
+    content: "You said: \201C"; }
+  .previously:after {
+    content: "\201D"; }
+
+.ohYeahWell {
+  display: none;
+  margin-top: 0.5em;
+  font-family: 'Roboto', sans-serif; }
+  .ohYeahWell.active {
+    display: block; }
 
 #dimmer {
   display: none;

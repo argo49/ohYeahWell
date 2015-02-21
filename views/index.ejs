@@ -6,30 +6,38 @@
     <link rel="stylesheet" type="text/css" href="css/styles.css">
     <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
     <div class="container">
         <div class="row clearfix">
             <div class="column full">
-                <h1>Oh yeah? Well..</h1>
+                <h1 class="header">Oh yeah? Well...</h1>
+                <h1 class="ohYeahWell"></h1>
             </div>
         </div>
         <div class="row clearfix main-area">
             <div class="column full">
-                <button id="speak">
-                    Come at me bro
-                </button>
+                <div class="speak-easy">
+                    <div class="previously"></div>
+                    <button id="speak">
+                        Come at me bro
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
 
     <div id="dimmer">
-        <h1>Speak</h1>
+        <h1>Insult me</h1>
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript">
+
+        var speakBtn = $('#speak');
 
         // Speech to text
         var recognition            = new webkitSpeechRecognition();
@@ -38,7 +46,7 @@
 
         console.log(recognition);
 
-        $('#speak').on('click', function () {
+        speakBtn.on('click', function () {
             recognition.start();
         });
 
@@ -83,7 +91,7 @@
             // Your speech in text
             console.log(text);
 
-            //append text to screen
+            $('.previously').addClass('active').text('').text(text);
 
             scrollChat();
 
@@ -96,7 +104,26 @@
                 })
                 .done(function(data) {
                     speak(data);
+                    $('.ohYeahWell').text('').append(data).addClass('active');
                 });
+            } else {
+                $.ajax({
+                    url: '/insults',
+                    type: 'GET'
+                })
+                .done(function(data) {
+                    speak(data);
+                    $('.ohYeahWell').text('').append(data).addClass('active');
+                })
+                .error(function (data) {
+                    console.log(data);
+                });
+            }
+
+            console.log(speakBtn.text());
+
+            if (speakBtn.text().trim() == "Come at me bro") {
+                speakBtn.text("Oh no you didn't").css('width', '9em');
             }
 
         }
