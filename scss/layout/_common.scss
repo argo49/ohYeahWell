@@ -26,7 +26,7 @@ html, body, .container {
 h1 {
     color: $c-highlight;
     border: none;
-    font-family: 'Parisienne', cursive;
+    font-family: 'comic-sans', cursive;
     margin-bottom: 0;
 }
 
@@ -59,10 +59,10 @@ button {
 }
 
 #speak {
-    font-size: 3em;
+    font-size: 2em;
     padding: 0.5em 1em;
-    font-family: 'Parisienne', cursive;
-    width: 8em;
+    font-family: 'comic-sans', cursive;
+    width: 10em;
     margin: auto;
     display: block;
 }
@@ -78,6 +78,11 @@ button {
 
 .header {
     font-size: 4em;
+
+    span {
+        display: inline-block;
+    }
+
 }
 
 .previously {
@@ -100,6 +105,7 @@ button {
     text-align: center;
     font-size: 3em;
     font-family: 'Parisienne', cursive;
+    text-transform: capitalize;
 }
 
 .ohYeahWell {

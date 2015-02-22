@@ -4,9 +4,6 @@
     <title>Oh Yeah? Well...</title>
     <link rel=" stylesheet" type="text/css" href="css/normalize.css">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
-    <link href='http://fonts.googleapis.com/css?family=Parisienne' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Cardo' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
@@ -36,7 +33,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script type="text/javascript">
-
+    $(document).ready(function () {
         var speakBtn = $('#speak');
 
         // Speech to text
@@ -93,34 +90,21 @@
 
             $('.previously').addClass('active').text('').text(text);
 
-            scrollChat();
-
             text = text.toLowerCase();
 
             if (yoMamaExp.test(text)) {
                 $.ajax({
                     url: '/yoMama',
-                    type: 'GET'
-                })
-                .done(function(data) {
-                    speak(data);
-                    $('.ohYeahWell').text('').append(data).addClass('active');
+                    type: 'GET',
+                    success: getData
                 });
             } else {
                 $.ajax({
                     url: '/insults',
-                    type: 'GET'
+                    type: 'GET',
+                    success: getData
                 })
-                .done(function(data) {
-                    speak(data);
-                    $('.ohYeahWell').text('').append(data).addClass('active');
-                })
-                .error(function (data) {
-                    console.log(data);
-                });
             }
-
-            console.log(speakBtn.text());
 
             if (speakBtn.text().trim() == "Come at me bro") {
                 speakBtn.text("Oh no you didn't").css('width', '9em');
@@ -128,17 +112,18 @@
 
         }
 
-        function scrollChat () {
-
+        function getData (data) {
+            console.log(data);
+            speak(data);
+            $('.ohYeahWell').text('').append(data).addClass('active');
         }
 
         function speak (str) {
+            if (typeof str !== "string") {
+                str = "Can you say that again?"
+            }
             var msg = new SpeechSynthesisUtterance(str);
             window.speechSynthesis.speak(msg);
-
-            // append message
-
-            scrollChat();
         }
 
         function thinking () {
@@ -149,6 +134,49 @@
             $('#chat').find('.notification').remove();
         }
 
+        var letters = '0123456789ABCDEF'.split('');
+
+        var title = $('.header');
+        colorify(title);
+
+        window.setInterval(function () {
+            colorify(title);
+        }, 100);
+
+        function colorify(element) {
+
+            var ogText = element.text();
+            var color, letter;
+
+            element.children().remove();
+            element.text('');
+
+            $.each(ogText.split(''), function (idx, ele) {
+              color = "#";
+
+              for (var i = 0; i < 6; i++ ) {
+                  color += letters[Math.floor(Math.random() * 16)];
+              }
+
+              letter = $('<span/>').text(ogText[idx]).css('color', color);
+
+              if (ogText[idx] == " ") {
+                letter.css('width', '0.5em');
+              }
+
+              var deg = Math.random() * 20;
+              var posNeg = Math.random() > 0.5 ? -1 : 1;
+              letter.css({
+                'transform': 'rotate(' + deg * posNeg + 'deg) translateY(' + Math.random() * 10 + 'px)'
+              });
+
+              element.append(letter);
+
+            });
+        }
+
+
+    });
     </script>
 </body>
 </html>

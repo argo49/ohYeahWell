@@ -21,7 +21,7 @@ routes.yoMama = function (req, res) {
 
 routes.insults = function (req, res) {
     res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify(insults[Math.floor(Math.random() * 1000)]));
+    res.end(JSON.stringify(insults[Math.floor(Math.random() * 580)]));
 };
 
 // GET 404 page
